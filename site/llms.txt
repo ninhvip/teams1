@@ -1,0 +1,93 @@
+# fMess
+
+> fMess is a free, open-source desktop app for Facebook Messenger on macOS, Windows and Linux. Meta shut down the Messenger desktop apps in December 2025 and messenger.com in April 2026; chats on the web now live at facebook.com/messages. fMess shows that page in a window of its own, with native notifications, calls, keyboard shortcuts and an unread badge, like the old desktop app. It is a few MB because it uses the system's webview instead of bundling Chromium. It is not made by Meta.
+
+Key facts:
+
+- Website: https://fmess.app (English and Vietnamese).
+- Source code: https://github.com/toanbku/fmess (MIT license). Built with Tauri v2 (Rust) and the system webview: WebKit on macOS and Linux, WebView2 on Windows.
+- Price: free. No account other than your Facebook one.
+- Systems: macOS 12 or later (Apple silicon and Intel), Windows 10 and 11 (installer or portable .exe), Linux (AppImage, .deb, .rpm).
+- Updates: the app checks GitHub for new versions and installs them when you say so.
+- Not affiliated with, endorsed by or sponsored by Meta Platforms, Inc. Messenger and Facebook are trademarks of Meta Platforms, Inc.
+
+## Download
+
+- [All releases and release notes](https://github.com/toanbku/fmess/releases/latest): every build for the latest version.
+- [macOS, Apple silicon (M1 and later)](https://github.com/toanbku/fmess/releases/latest/download/fMess-mac-apple-silicon.dmg): disk image, signed and notarized.
+- macOS with Homebrew: `brew install --cask toanbku/tap/fmess`
+- [macOS, Intel](https://github.com/toanbku/fmess/releases/latest/download/fMess-mac-intel.dmg): disk image, signed and notarized.
+- [Windows 10 and 11](https://github.com/toanbku/fmess/releases/latest/download/fMess-windows-setup.exe): installer. Not code-signed yet, so SmartScreen may warn: click "More info", then "Run anyway".
+- [Windows portable](https://github.com/toanbku/fmess/releases/latest/download/fMess-windows-portable.exe): one .exe that runs without installing, for computers that don't allow installing software. Same app; its update prompt opens the new .exe's download instead of installing.
+- [Linux AppImage](https://github.com/toanbku/fmess/releases/latest/download/fMess-linux.AppImage), [.deb](https://github.com/toanbku/fmess/releases/latest/download/fMess-linux.deb), [.rpm](https://github.com/toanbku/fmess/releases/latest/download/fMess-linux.rpm)
+
+## Features
+
+- Native notifications with the sender's photo, group names and quick reply in the banner (quick reply on macOS).
+- Voice and video calls, including end-to-end encrypted chats (encrypted-chat calls on macOS).
+- Just the chats: no Facebook feed, reels or top bar.
+- Block Typing: others don't see "typing…" while you write.
+- Messenger's settings in one place: sounds, Do Not Disturb and dark mode, synced with the phone app.
+- Keyboard shortcuts (Ctrl instead of ⌘ on Windows and Linux): ⌘K search chats, ⌘N new message, ⌘1–⌘9 open the 1st–9th chat, ⌃Tab next/previous chat, ⌘⇧H back to the chat list, ⌘+ / ⌘− / ⌘0 zoom, ⌘, settings.
+- Zoomable photos: pinch or double-click in the photo viewer.
+- Unread badge on the Dock or taskbar, a tray icon, keeps running in the background.
+- Resizable panes: drag the edges of the chat list and the chat details; double-click an edge to reset.
+- Themes: Messenger's own look, or Zalo, WhatsApp and Microsoft Teams looks (Messenger underneath), each in light and dark. With the Zalo, WhatsApp or Teams theme, fMess's icon (Dock, taskbar, tray) becomes that app's logo with a small fMess badge while it runs (a switch in Settings turns this off).
+- Hide profile pictures (Settings, Appearance): people's pictures show as their initials, for screens others can see; notifications then go without them.
+- Drag files and screenshots into a chat to send them. Copy Image, then paste, sends the picture.
+- Your own app icon and name (Settings, Appearance): a .png or .ico picture as the icon in the Dock, taskbar and tray, and a name on the windows, tray and notifications.
+- Draws up to 120 frames a second on 120 Hz (ProMotion) Macs, like Chrome.
+- Check spelling switch (Settings, General), on by default: turn it off where spell check underlines your language (Vietnamese on a Windows set up in English, say).
+- Links in chats open in the default browser without Facebook's redirect and tracking tags.
+- fMess's own interface (menus, Settings, dialogs) is in English and Vietnamese: it follows the system's language, or the one chosen in Settings. Messenger itself follows the Facebook account's language.
+
+## Compared with other apps
+
+Other ways to use Messenger on a desktop, checked on November 1, 2026 (each project's GitHub page, its latest Mac download for Apple silicon, and macOS's own signature check):
+
+| | fMess | Messenger Next | Caprine | Ferdium | A browser tab |
+|---|---|---|---|---|---|
+| Made for | Messenger | Messenger | Messenger | Many services in one app | All of Facebook, feed included |
+| Source code | Open (MIT) | Closed | Open (MIT) | Open (Apache 2.0) | – |
+| Mac download | 4.3 MB | 9.6 MB | 98 MB | 160 MB | – |
+| Built on | The system's webview (Tauri) | The system's webview (Tauri) | Electron (bundles Chromium) | Electron (bundles Chromium) | Your browser |
+| Mac app signed | Yes, notarized by Apple | No (macOS rejects it until you allow it) | Yes (Developer ID) | Yes, notarized by Apple | – |
+| Latest release | November 2026 (0.1.18) | September 2026 (1.9.0) | January 2026 (2.61.0), before messenger.com closed in April | September 2026 (7.2.3) | – |
+
+- Messenger Next (github.com/rozsazoltan/messenger) is the closest alternative: also small and built on Tauri, but its source is closed (its GitHub repository holds only documentation and install scripts) and its Mac app isn't signed.
+- Caprine (github.com/sindresorhus/caprine) was the best-known open-source Messenger app; it hasn't had a release since messenger.com closed, and its open issues since then report login, call and notification problems.
+- Ferdium (github.com/ferdium/ferdium-app) puts many web apps in one window; it suits people who want WhatsApp, Slack and more alongside Messenger, at the size of a bundled browser.
+- Why the source matters: a Messenger app holds the user's Facebook login session and can read every message. fMess's source is public, so what it does with them can be checked by anyone, and the app built from it; a closed-source app has to be taken on its developer's word.
+- fMess is the one that is open source, signed and notarized on the Mac, a few MB, made for facebook.com/messages after messenger.com closed, and updated through November 2026.
+
+## Privacy
+
+- You sign in on Facebook's own page inside the app; fMess never sees your password.
+- fMess has no server and sends no analytics or tracking from the app.
+- The page can ask the app for only a few things, such as showing a notification; it can't read files or run programs.
+
+## Questions
+
+- Is fMess made by Meta? No. It's an independent, open-source app that shows facebook.com/messages in its own window.
+- Why not messenger.com? Meta shut it down in April 2026; chats now live inside facebook.com.
+- Is it safe to sign in? You sign in on Facebook's own page. fMess never sees your password and has no server.
+- Do encrypted chats work? Yes: chats, photos and voice messages everywhere, and calls on macOS.
+- Windows says it can't find the WebView2 Runtime? fMess uses WebView2, which Windows 10 and 11 include but some trimmed-down builds remove; install it from https://developer.microsoft.com/microsoft-edge/webview2 (Evergreen) and open fMess again.
+- macOS won't open it? System Settings → Privacy & Security → Open Anyway.
+
+## Known limitations
+
+- Facebook changes its web app often; a change on their side can break something until fMess is updated.
+- On Linux, calls depend on WebKitGTK's WebRTC support.
+- On Windows and Linux, the webview may slow down a hidden window.
+
+## Docs
+
+- [README](https://raw.githubusercontent.com/toanbku/fmess/main/README.md): install, features, shortcuts, privacy, building from source, how it works.
+- [README in Vietnamese](https://raw.githubusercontent.com/toanbku/fmess/main/README.vi.md)
+
+## Optional
+
+- [Website in Vietnamese](https://fmess.app/?lang=vi)
+- [Product Hunt](https://www.producthunt.com/products/fmess)
+- [License (MIT)](https://raw.githubusercontent.com/toanbku/fmess/main/LICENSE)

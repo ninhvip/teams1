@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>fMess - Messenger for your desktop</title>
+<meta name="description" content="Meta shut down the Messenger desktop app. fMess brings it back: a small, native app for your chats on macOS, Windows and Linux, with real notifications, calls and keyboard shortcuts. Free and open source.">
+<meta name="theme-color" content="#141417">
+<meta name="google-site-verification" content="jpPkYQRqTjNNY50HuuGuRLLxMQY9xM1vW4O-Rp1dSfY">
+<link rel="canonical" href="https://fmess.app/">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=2">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png?v=2">
+<link rel="apple-touch-icon" href="assets/icon-256.png?v=2">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://fmess.app/">
+<meta property="og:title" content="fMess - Messenger for your desktop">
+<meta property="og:description" content="The Messenger desktop app is gone. fMess brings your chats back to a native window on macOS, Windows and Linux.">
+<meta property="og:image" content="https://fmess.app/assets/og.png?v=2">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" hreflang="en" href="https://fmess.app/?lang=en">
+<link rel="alternate" hreflang="vi" href="https://fmess.app/?lang=vi">
+<link rel="alternate" hreflang="x-default" href="https://fmess.app/">
+<script>
+  // Motion plays only when the visitor's system allows it (see assets/site.css).
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion');
+  // Light or dark as the visitor chose here before (assets/site.js), before anything paints.
+  try {
+    const theme = localStorage.getItem('fmess.theme');
+    if (theme === 'dark' || theme === 'light') document.documentElement.dataset.theme = theme;
+  } catch {}
+</script>
+<script src="assets/vendor/motion-14.3.0.js" defer></script>
+<script src="assets/site.js?v=14" defer></script>
+<link rel="stylesheet" href="assets/site.css?v=11">
+<!-- What fMess is, for search engines and AI assistants (schema.org). -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "fMess",
+  "alternateName": "fMess - Messenger for your desktop",
+  "description": "A free, open-source desktop app for Facebook Messenger on macOS, Windows and Linux, with native notifications, calls, keyboard shortcuts and an unread badge. Made after Meta shut down the Messenger desktop app and messenger.com. Not affiliated with Meta.",
+  "url": "https://fmess.app/",
+  "image": "https://fmess.app/assets/og.png?v=2",
+  "screenshot": [
+    "https://fmess.app/assets/shot-messenger.webp",
+    "https://fmess.app/assets/shot-zalo.webp",
+    "https://fmess.app/assets/shot-whatsapp.webp"
+  ],
+  "applicationCategory": "CommunicationApplication",
+  "operatingSystem": "macOS 12 or later, Windows 10, Windows 11, Linux",
+  "downloadUrl": "https://github.com/toanbku/fmess/releases/latest",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "license": "https://opensource.org/licenses/MIT",
+  "author": {
+    "@type": "Person",
+    "name": "Toan Ho",
+    "url": "https://github.com/toanbku"
+  },
+  "sameAs": [
+    "https://github.com/toanbku/fmess",
+    "https://www.producthunt.com/products/fmess"
+  ],
+  "inLanguage": [
+    "en",
+    "vi"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is fMess made by Meta?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It's an independent, open-source app that shows facebook.com/messages in its own window."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why not messenger.com?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Meta shut it down in April 2026. Chats now live inside facebook.com."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is it safe to sign in?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You sign in on Facebook's own page. fMess never sees your password and has no server."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do encrypted chats work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes: chats, calls on macOS, photos and voice messages."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Windows says it can't find the WebView2 Runtime?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "fMess uses WebView2, the part of Windows that shows web pages in apps. Windows 10 and 11 come with it, but some trimmed-down builds remove it. Install it from Microsoft's WebView2 page (https://developer.microsoft.com/microsoft-edge/webview2, the Evergreen installer), then open fMess again."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#"><img src="assets/mark.png?v=2" alt="">fMess</a>
+    <div class="links">
+      <a href="#features" data-i18n="nav_features">Features</a>
+      <a href="#notifications" data-i18n="nav_notifications">Notifications</a>
+      <a href="#compare" data-i18n="nav_compare">Compare</a>
+      <a href="#shortcuts" data-i18n="nav_shortcuts">Shortcuts</a>
+      <a href="#faq" data-i18n="nav_faq">FAQ</a>
+      <a href="https://github.com/toanbku/fmess">GitHub</a>
+    </div>
+    <div class="lang" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="vi" aria-pressed="false">VI</button></div>
+    <button type="button" class="theme-toggle" aria-pressed="false" aria-label="Dark mode" data-i18n-label="theme_toggle"><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.1A8.5 8.5 0 1 1 9.9 3.5a6.6 6.6 0 0 0 10.6 10.6Z"/></svg><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></svg></button>
+    <a class="btn btn-primary btn-small" href="#download" data-i18n="nav_download">Download</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow" data-i18n="eyebrow">The Messenger desktop app is gone. <b>This isn't.</b></span>
+      <h1 data-i18n="hero_title">Messenger <span class="ink-text">is back on your desktop.</span></h1>
+      <p class="lead" data-i18n="hero_lead">Your chats in a fast, native app, with real notifications, calls and shortcuts.</p>
+      <div class="cta">
+        <a class="btn btn-primary" id="download-hero" href="#download">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>
+          <span data-i18n="download_hero">Download fMess</span>
+        </a>
+        <a class="btn btn-ghost" href="https://github.com/toanbku/fmess">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.54-3.88-1.54-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
+          <span data-i18n="star">Star on GitHub</span>
+        </a>
+      </div>
+      <p class="alt-download" id="download-intel" hidden><a href="https://github.com/toanbku/fmess/releases/latest/download/fMess-mac-intel.dmg" data-i18n="intel_link">Mac with an Intel chip? Download this one.</a></p>
+      <div class="meta"><span data-i18n="meta_free">Free and open source</span><span data-i18n="meta_platforms">macOS, Windows, Linux</span><span data-i18n="meta_small">A few MB, no Chromium</span></div>
+    </div>
+
+    <div class="stage">
+      <figure class="shot" aria-roledescription="carousel">
+        <div class="viewport">
+          <div class="track">
+            <img class="on" data-shot="messenger" src="assets/shot-messenger.webp?v=2" width="880" height="600" alt="fMess on a Mac: the chat list and a chat, in Messenger's own look" data-i18n-alt="shot_messenger">
+            <img data-shot="zalo" src="assets/shot-zalo.webp?v=2" width="880" height="600" alt="The same chat with fMess's Zalo theme" data-i18n-alt="shot_zalo">
+            <img data-shot="whatsapp" src="assets/shot-whatsapp.webp?v=2" width="880" height="600" alt="The same chat with fMess's WhatsApp theme" data-i18n-alt="shot_whatsapp">
+            <img data-shot="teams" src="assets/shot-teams.webp?v=2" width="880" height="600" alt="The same chat with fMess's Teams theme" data-i18n-alt="shot_teams">
+          </div>
+        </div>
+        <figcaption>
+          <span class="looks" role="group" aria-label="Themes" data-i18n-label="themes_label"><button type="button" aria-pressed="true">Messenger</button><button type="button" aria-pressed="false">Zalo</button><button type="button" aria-pressed="false">WhatsApp</button><button type="button" aria-pressed="false">Teams</button></span>
+          <strong class="shot-title" data-i18n="shot_title">Messenger, dressed as Zalo, WhatsApp or Teams. Why not?</strong>
+          <span class="shot-note" data-i18n="shot_note">Zalo, WhatsApp or Teams on the outside, Messenger underneath. Chat away at work, or just try something new.</span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</header>
+
+<section id="features">
+  <div class="wrap">
+    <h2 data-i18n="features_title">Everything the old app did. <span class="ink-text">And more.</span></h2>
+    <div class="grid">
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 8 3 8H3s3-1 3-8"/><path d="M10.3 20a1.9 1.9 0 0 0 3.4 0"/></svg></div>
+        <h3 data-i18n="card1_title">Real notifications</h3>
+        <p data-i18n="card1_text">Sender photos and quick reply, right in the banner.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l5-3v10l-5-3z"/><rect x="3" y="6" width="12" height="12" rx="3"/></svg></div>
+        <h3 data-i18n="card2_title">Voice and video calls</h3>
+        <p data-i18n="card2_text">Encrypted chats included.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M9 4v16"/></svg></div>
+        <h3 data-i18n="card3_title">Just your chats</h3>
+        <p data-i18n="card3_text">No feed, no reels, no distractions.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6z"/><path d="M9 12h6"/></svg></div>
+        <h3 data-i18n="card4_title">Block Typing</h3>
+        <p data-i18n="card4_text">Draft in peace. Nobody sees “typing…”.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></div>
+        <h3 data-i18n="card5_title">Settings in one place</h3>
+        <p data-i18n="card5_text">Sounds, Do Not Disturb and dark mode, synced with your phone.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="3"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/></svg></div>
+        <h3 data-i18n="card6_title">Keyboard first</h3>
+        <p data-i18n="card6_text">⌘K to search, ⌘1–9 to jump, ⌘+ to zoom.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></div>
+        <h3 data-i18n="card7_title">Zoomable photos</h3>
+        <p data-i18n="card7_text">Pinch or double-click to zoom in.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="6" r="3"/><path d="M13 4H6a3 3 0 0 0-3 3v11a3 3 0 0 0 3 3h11a3 3 0 0 0 3-3v-7"/></svg></div>
+        <h3 data-i18n="card8_title">Always there</h3>
+        <p data-i18n="card8_text">Dock badge, tray icon, runs in the background.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></div>
+        <h3 data-i18n="card9_title">Small and fast</h3>
+        <p data-i18n="card9_text">A few MB. No bundled browser.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="notifications" class="soft">
+  <div class="wrap split">
+    <div>
+      <h2 data-i18n="notifications_title">Reply without <span class="ink-text">switching apps.</span></h2>
+      <p class="section-lead" data-i18n="notifications_lead">Photos, group names and quick reply in every notification, like the old app (macOS).</p>
+    </div>
+    <div class="stack" aria-hidden="true">
+      <div class="note"><div class="who"><span class="av a1">M</span><img src="assets/icon-256.png?v=2" alt=""></div><div><b>Mia Chen</b><p data-i18n="mock_dinner">Dinner tonight? 🍜</p></div><time data-i18n="time_now">now</time><div class="reply"><span data-i18n="reply_sure">Sure, 7pm?</span><em data-i18n="send">Send</em></div></div>
+      <div class="note"><div class="group-av"><span class="av a4">L</span><span class="av a3">J</span></div><div><b>Design team</b><p data-i18n="note_icons">Leo: New icons are up, take a look 👀</p></div><time data-i18n="time_1m">1m ago</time></div>
+      <div class="note"><div class="who"><span class="av a2">S</span><img src="assets/icon-256.png?v=2" alt=""></div><div><b>Sam Rivera</b><p data-i18n="note_way">On my way!</p></div><time data-i18n="time_2m">2m ago</time></div>
+    </div>
+  </div>
+</section>
+
+<section id="privacy">
+  <div class="wrap split">
+    <div>
+      <h2 data-i18n="privacy_title">Private <span class="ink-text">by design.</span></h2>
+    </div>
+    <ul class="checks">
+      <li data-i18n="point5"><b>No fMess server.</b> You sign in on Facebook's own page.</li>
+      <li data-i18n="point6"><b>No tracking in the app.</b> Nothing is sent anywhere.</li>
+      <li data-i18n="point9"><b>Open source.</b> MIT, on GitHub.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="compare" class="soft">
+  <div class="wrap">
+    <h2 data-i18n="cmp_title">How fMess <span class="ink-text">compares.</span></h2>
+    <p class="section-lead" data-i18n="cmp_lead">Other ways to get Messenger on your desktop, as of November 2026.</p>
+    <div class="compare-scroll">
+      <table class="compare">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="us">fMess</th>
+            <th><a href="https://github.com/rozsazoltan/messenger">Messenger Next</a></th>
+            <th><a href="https://github.com/sindresorhus/caprine">Caprine</a></th>
+            <th><a href="https://github.com/ferdium/ferdium-app">Ferdium</a></th>
+            <th data-i18n="cmp_tab">A browser tab</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th data-i18n="cmp_for">Made for</th>
+            <td class="us">Messenger</td>
+            <td>Messenger</td>
+            <td>Messenger</td>
+            <td data-i18n="cmp_many">Many services in one app</td>
+            <td data-i18n="cmp_all_fb">All of Facebook, feed included</td>
+          </tr>
+          <tr>
+            <th data-i18n="cmp_source">Source code</th>
+            <td class="us" data-i18n="cmp_open_mit">Open (MIT)</td>
+            <td data-i18n="cmp_closed">Closed</td>
+            <td data-i18n="cmp_open_mit2">Open (MIT)</td>
+            <td data-i18n="cmp_open_apache">Open (Apache 2.0)</td>
+            <td>–</td>
+          </tr>
+          <tr>
+            <th data-i18n="cmp_size">Mac download</th>
+            <td class="us">4.3 MB</td>
+            <td>9.6 MB</td>
+            <td>98 MB</td>
+            <td>160 MB</td>
+            <td>–</td>
+          </tr>
+          <tr>
+            <th data-i18n="cmp_engine">Built on</th>
+            <td class="us" data-i18n="cmp_webview">The system's webview</td>
+            <td data-i18n="cmp_webview2">The system's webview</td>
+            <td data-i18n="cmp_electron">Electron (a whole Chromium inside)</td>
+            <td data-i18n="cmp_electron2">Electron (a whole Chromium inside)</td>
+            <td data-i18n="cmp_browser">Your browser</td>
+          </tr>
+          <tr>
+            <th data-i18n="cmp_signed">Mac app signed</th>
+            <td class="us" data-i18n="cmp_notarized">Yes, notarized by Apple</td>
+            <td data-i18n="cmp_unsigned">No</td>
+            <td data-i18n="cmp_yes">Yes</td>
+            <td data-i18n="cmp_notarized2">Yes, notarized by Apple</td>
+            <td>–</td>
+          </tr>
+          <tr>
+            <th data-i18n="cmp_release">Latest release</th>
+            <td class="us" data-i18n="cmp_nov">November 2026</td>
+            <td data-i18n="cmp_sep">September 2026</td>
+            <td data-i18n="cmp_jan">January 2026, before messenger.com closed</td>
+            <td data-i18n="cmp_sep2">September 2026</td>
+            <td>–</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="compare-why" data-i18n="cmp_why"><b>Why open source matters here.</b> A Messenger app holds your Facebook login and sees every message you send and receive. fMess's code is public, so you, or anyone, can check what it does with them and build it yourself. With a closed-source app, you take the developer's word for it.</p>
+    <p class="compare-also" data-i18n="cmp_also"><b>Also in fMess:</b> notifications with the sender's photo and quick reply, calls in encrypted chats (macOS), Zalo, WhatsApp and Teams looks, hiding people's pictures, dragging files into a chat, panes you can resize, and the old app's shortcuts.</p>
+    <p class="compare-note" data-i18n="cmp_note">From each project's GitHub page and its latest Mac download (Apple silicon), checked on November 1, 2026. Signing as macOS's own check (spctl) reports it.</p>
+  </div>
+</section>
+
+<section id="shortcuts">
+  <div class="wrap">
+    <h2 data-i18n="shortcuts_title">Shortcuts your hands <span class="ink-text">already know.</span></h2>
+    <p class="section-lead" data-i18n="shortcuts_lead">Ctrl on Windows and Linux.</p>
+    <div class="keys">
+      <div class="key"><span data-i18n="key1">Search chats</span><kbd>⌘ K</kbd></div>
+      <div class="key"><span data-i18n="key2">New message</span><kbd>⌘ N</kbd></div>
+      <div class="key"><span data-i18n="key3">Open the 1st … 9th chat</span><kbd>⌘ 1 … 9</kbd></div>
+      <div class="key"><span data-i18n="key4">Next / previous chat</span><kbd>⌃ Tab</kbd></div>
+      <div class="key"><span data-i18n="key5">Back to the chat list</span><kbd>⌘ ⇧ H</kbd></div>
+      <div class="key"><span data-i18n="key6">Zoom in / out / actual size</span><kbd>⌘ + &nbsp;⌘ − &nbsp;⌘ 0</kbd></div>
+      <div class="key"><span data-i18n="key7">Settings</span><kbd>⌘ ,</kbd></div>
+    </div>
+  </div>
+</section>
+
+<section id="download" class="soft">
+  <div class="wrap">
+    <h2 data-i18n="download_title">Get fMess. <span class="ink-text">It's free.</span></h2>
+    <p class="section-lead version-line" id="latest-version" hidden></p>
+    <div class="platforms">
+      <div class="card platform">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.3 1.2 9.7.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.1-1.2 2.9-2.4.9-1.3 1.3-2.6 1.3-2.7 0 0-2.5-1-2.5-3.9ZM14 5.4c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4Z"/></svg>
+        <h3>macOS</h3>
+        <p class="muted" data-i18n="mac_text">macOS 12 or later</p>
+        <div class="choices">
+          <a class="btn btn-primary" href="https://github.com/toanbku/fmess/releases/latest/download/fMess-mac-apple-silicon.dmg" data-i18n="mac_silicon">Apple silicon</a>
+          <a class="btn btn-ghost" href="https://github.com/toanbku/fmess/releases/latest/download/fMess-mac-intel.dmg" data-i18n="mac_intel">Intel</a>
+        </div>
+        <p class="which" data-i18n="mac_which">Not sure? Apple menu → About This Mac: “Chip Apple M…” is Apple silicon.</p>
+        <p class="which" data-i18n="mac_brew">Or with Homebrew: <code>brew install --cask toanbku/tap/fmess</code></p>
+      </div>
+      <div class="card platform">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.3l7.4-1v7.2H3zm0 13.4l7.4 1v-7.1H3zm8.3 1.1L21 21v-8.4h-9.7zm0-15.6v7.3H21V3z"/></svg>
+        <h3>Windows</h3>
+        <p class="muted" data-i18n="windows_text">Windows 10 and 11</p>
+        <div class="choices">
+          <a class="btn btn-primary" href="https://github.com/toanbku/fmess/releases/latest/download/fMess-windows-setup.exe" data-i18n="windows_button">Download for Windows</a>
+          <a class="btn btn-ghost" href="https://github.com/toanbku/fmess/releases/latest/download/fMess-windows-portable.exe" data-i18n="windows_portable">Portable</a>
+        </div>
+        <p class="which" data-i18n="windows_which">Portable: one .exe that runs without installing, for computers that don't allow installing apps.</p>
+      </div>
+      <div class="card platform">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-2.2 0-3.5 1.8-3.5 4.5 0 1.6-.6 2.6-1.5 4C5.6 12.6 4 15 5 18c.6 1.8 2.6 3 4 2.4.9-.4 1.8-.6 3-.6s2.1.2 3 .6c1.4.6 3.4-.6 4-2.4 1-3-.6-5.4-2-7.5-.9-1.4-1.5-2.4-1.5-4C15.5 3.8 14.2 2 12 2Z"/><circle cx="10.5" cy="7" r=".6" fill="currentColor"/><circle cx="13.5" cy="7" r=".6" fill="currentColor"/></svg>
+        <h3>Linux</h3>
+        <p class="muted" data-i18n="linux_text">Ubuntu, Debian and most others</p>
+        <div class="choices">
+          <a class="btn btn-primary" href="https://github.com/toanbku/fmess/releases/latest/download/fMess-linux.AppImage">AppImage</a>
+          <a class="btn btn-ghost" href="https://github.com/toanbku/fmess/releases/latest/download/fMess-linux.deb">.deb</a>
+        </div>
+      </div>
+    </div>
+    <p class="note-mac" data-i18n="windows_note">Windows says it protected your PC? Click <b>More info</b>, then <b>Run anyway</b>. fMess isn't code-signed for Windows yet.</p>
+    <p class="note-mac" data-i18n="mac_note">macOS won't open fMess? Go to <b>System Settings → Privacy &amp; Security</b> and click <b>Open Anyway</b>.</p>
+    <p class="note-mac"><a href="https://github.com/toanbku/fmess/releases/latest" data-i18n="all_files">All files and release notes</a></p>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <h2 data-i18n="faq_title">Questions</h2>
+    <details open><summary data-i18n="q1">Is fMess made by Meta?</summary><p data-i18n="a1">No. It's an independent, open-source app that shows facebook.com/messages in its own window.</p></details>
+    <details><summary data-i18n="q2">Why not messenger.com?</summary><p data-i18n="a2">Meta shut it down in April 2026. Chats now live inside facebook.com.</p></details>
+    <details><summary data-i18n="q3">Is it safe to sign in?</summary><p data-i18n="a3">You sign in on Facebook's own page. fMess never sees your password and has no server.</p></details>
+    <details><summary data-i18n="q4">Do encrypted chats work?</summary><p data-i18n="a4">Yes: chats, calls on macOS, photos and voice messages.</p></details>
+    <details><summary data-i18n="q6">My work computer doesn't allow installing apps?</summary><p data-i18n="a6">On Windows, use <a href="https://github.com/toanbku/fmess/releases/latest/download/fMess-windows-portable.exe">the portable fMess</a>: one .exe that runs without installing and needs no admin rights. Keep it anywhere, in Downloads or on a USB stick, and open it. When there is a new version, fMess opens its download; use the new file in place of the old one. On a Mac, the app from the .dmg also runs from any folder.</p></details>
+    <details><summary data-i18n="q5">Windows says it can't find the WebView2 Runtime?</summary><p data-i18n="a5">fMess uses WebView2, the part of Windows that shows web pages in apps. Windows 10 and 11 come with it, but some trimmed-down builds remove it. Install it from <a href="https://developer.microsoft.com/microsoft-edge/webview2">Microsoft's WebView2 page</a> (the Evergreen installer), then open fMess again.</p></details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p data-i18n="footer_copy">© 2026 fMess contributors · <a href="https://github.com/toanbku/fmess">GitHub</a> · MIT license</p>
+    <p data-i18n="footer_legal">fMess is not affiliated with, endorsed by or sponsored by Meta Platforms, Inc. Messenger and Facebook are trademarks of Meta Platforms, Inc.</p>
+  </div>
+</footer>
+
+</body>
+</html>
